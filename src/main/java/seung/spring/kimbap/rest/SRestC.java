@@ -1,4 +1,4 @@
-package seung.spring.kimbap.test;
+package seung.spring.kimbap.rest;
 
 import javax.annotation.Resource;
 
@@ -18,31 +18,31 @@ import io.swagger.annotations.ExampleProperty;
 import lombok.extern.slf4j.Slf4j;
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
-import seung.spring.kimbap.test.service.STestS;
+import seung.spring.kimbap.rest.service.SRestS;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags = "테스트 API", value = "STestC")
+@Api(tags = "테스트 API", value = "SRestC")
 @Slf4j
 @Controller
-public class STestC {
+public class SRestC {
 
-	@Resource(name = "sTestS")
-	private STestS sTestS;
+	@Resource(name = "sRestS")
+	private SRestS sRestS;
 	
 	@ApiOperation(response = SResponse.class, value = "JPA 조회 테스트", notes = "JAP findAll")
 	@ApiResponses(value = {
 			@ApiResponse(
 					code = 200
-					, message = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"test0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
+					, message = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"rest0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
 					, examples = @Example(value = {
 							@ExampleProperty(
 									mediaType = "application/json"
-									, value = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"test0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
+									, value = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"rest0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
 									)})
 					)
 	})
-	@RequestMapping(value = {"/rest/test/test0000"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String test0000(
+	@RequestMapping(value = {"/rest/rest0000"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0000(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -56,7 +56,7 @@ public class STestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sTestS.test0000(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0000(sRequest));
 		
 		return "jsonView";
 		
@@ -74,8 +74,8 @@ public class STestC {
 									)})
 					)
 	})
-	@RequestMapping(value = {"/rest/test/test0010"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String test0010(
+	@RequestMapping(value = {"/rest/rest0010"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0010(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -96,7 +96,7 @@ public class STestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sTestS.test0010(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0010(sRequest));
 		
 		return "jsonView";
 	}
@@ -113,8 +113,8 @@ public class STestC {
 									)})
 					)
 	})
-	@RequestMapping(value = {"/rest/test/test0020"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String test0020(
+	@RequestMapping(value = {"/rest/rest0020"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0020(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -142,7 +142,7 @@ public class STestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sTestS.test0020(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0020(sRequest));
 		
 		return "jsonView";
 	}
@@ -159,8 +159,8 @@ public class STestC {
 									)})
 					)
 	})
-	@RequestMapping(value = {"/rest/test/test0030"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String test0030(
+	@RequestMapping(value = {"/rest/rest0030"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0030(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -174,7 +174,7 @@ public class STestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sTestS.test0030(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0030(sRequest));
 		
 		return "jsonView";
 	}

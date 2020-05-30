@@ -1,4 +1,4 @@
-package seung.spring.kimbap.test;
+package seung.spring.kimbap.rest;
 
 import java.util.Date;
 
@@ -24,7 +24,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 @Getter
 @Setter
-public class STest {
+public class SRest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -43,6 +43,6 @@ public class STest {
 	@Column
 	private Date date_u;
 	
-	protected STest() {}
+	protected SRest() {}
 	
 }

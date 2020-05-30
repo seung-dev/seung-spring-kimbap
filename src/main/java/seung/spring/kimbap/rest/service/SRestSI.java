@@ -1,4 +1,4 @@
-package seung.spring.kimbap.test.service;
+package seung.spring.kimbap.rest.service;
 
 import java.util.Date;
 
@@ -14,26 +14,26 @@ import seung.spring.boot.conf.datasource.SMapperI;
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
 import seung.spring.kimbap.SKimbapError;
-import seung.spring.kimbap.test.STest;
+import seung.spring.kimbap.rest.SRest;
 
 @Slf4j
-@Service(value = "sTestS")
-public class STestSI implements STestS {
+@Service(value = "sRestS")
+public class SRestSI implements SRestS {
 
-	@Resource(name = "sTestR")
-	private STestR sTestR;
+	@Resource(name = "sRestR")
+	private SRestR sRestR;
 	
 	@Resource(name = "sMapperI")
 	private SMapperI sMapperI;
 	
 	@Override
-	public SResponse test0000(SRequest sRequest) {
+	public SResponse rest0000(SRequest sRequest) {
 		
 		log.debug("run");
 		
 		SResponse sResponse = SResponse.builder(sRequest.getData()).build();
 		
-		sResponse.putData("test0000", sTestR.findAll());
+		sResponse.putData("rest0000", sRestR.findAll());
 		sResponse.setError_code(SKimbapError.Success.errorCode());
 		
 		return sResponse;
@@ -41,14 +41,14 @@ public class STestSI implements STestS {
 	
 	@Transactional
 	@Override
-	public SResponse test0010(SRequest sRequest) {
+	public SResponse rest0010(SRequest sRequest) {
 		
 		log.debug("run");
 		
 		SResponse sResponse = SResponse.builder(sRequest.getData()).build();
 		
-		STest saveAndFlush = sTestR.saveAndFlush(
-				STest
+		SRest saveAndFlush = sRestR.saveAndFlush(
+				SRest
 					.builder()
 					.col01(sRequest.getData().getString("col01", ""))
 					.col02(sRequest.getData().getString("col02", ""))
@@ -57,38 +57,38 @@ public class STestSI implements STestS {
 					.build()
 				)
 				;
-		sResponse.putData("test0010", saveAndFlush);
+		sResponse.putData("rest0010", saveAndFlush);
 		sResponse.setError_code(SKimbapError.Success.errorCode());
 		
 		return sResponse;
 	}
 	
 	@Override
-	public SResponse test0020(SRequest sRequest) throws SCastException {
+	public SResponse rest0020(SRequest sRequest) throws SCastException {
 		
 		log.debug("run");
 		
 		SResponse sResponse = SResponse.builder(sRequest.getData()).build();
 		
-		STest sTest = sTestR.getOne(sRequest.getData().getLong("id"));
-		sTest.setCol01(sRequest.getData().getString("col01", ""));
-		sTest.setCol02(sRequest.getData().getString("col02", ""));
-		sTest.setDate_u(new Date());
-		sResponse.putData("test0020", sTestR.saveAndFlush(sTest));
+		SRest sRest = sRestR.getOne(sRequest.getData().getLong("id"));
+		sRest.setCol01(sRequest.getData().getString("col01", ""));
+		sRest.setCol02(sRequest.getData().getString("col02", ""));
+		sRest.setDate_u(new Date());
+		sResponse.putData("rest0020", sRestR.saveAndFlush(sRest));
 		sResponse.setError_code(SKimbapError.Success.errorCode());
 		
 		return sResponse;
 	}
 	
 	@Override
-	public SResponse test0030(SRequest sRequest) throws SCastException {
+	public SResponse rest0030(SRequest sRequest) throws SCastException {
 		
 		log.debug("run");
 		
 		SResponse sResponse = SResponse.builder(sRequest.getData()).build();
 		
-		sTestR.deleteById(sRequest.getData().getLong("id"));
-		sResponse.putData("test0030", sTestR.existsById(sRequest.getData().getLong("id")) ? 0 : 1);
+		sRestR.deleteById(sRequest.getData().getLong("id"));
+		sResponse.putData("rest0030", sRestR.existsById(sRequest.getData().getLong("id")) ? 0 : 1);
 		sResponse.setError_code(SKimbapError.Success.errorCode());
 		
 		return sResponse;

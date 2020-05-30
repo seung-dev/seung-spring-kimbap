@@ -7,7 +7,6 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.text.CaseUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
@@ -23,18 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 	@PropertySource(value = "classpath:s-swagger.properties")
 	, @PropertySource(value = "classpath:s-datasource.properties")
 	, @PropertySource(value = "classpath:s-jpa.properties")
+	, @PropertySource(value = "classpath:s-quartz.properties")
 })
 @ComponentScan(value = {"seung.spring"})
 @Slf4j
 @Configuration
 public class SConfiguration {
 
-	@Autowired
-	private Environment environment;
-	
 	@SuppressWarnings("unchecked")
 	@Bean(name = "sProperties")
-	public SProperties sProperties() {
+	public SProperties sProperties(Environment environment) {
 		
 		log.debug("run");
 		
