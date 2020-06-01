@@ -1,8 +1,8 @@
 # datasource 1st
-seung.datasource.0.hikari.driver-class-name=
-seung.datasource.0.hikari.jdbc-url=
-seung.datasource.0.hikari.username=
-seung.datasource.0.hikari.password=
+seung.datasource.0.hikari.driver-class-name=org.postgresql.Driver
+seung.datasource.0.hikari.jdbc-url=jdbc:postgresql://127.0.0.1:5432/databasename
+seung.datasource.0.hikari.username=username
+seung.datasource.0.hikari.password=password
 seung.datasource.0.hikari.connection-timeout=3000
 seung.datasource.0.hikari.maximum-pool-size=3
 seung.datasource.0.hikari.minimum-idle=1

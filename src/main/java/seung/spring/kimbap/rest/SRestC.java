@@ -21,7 +21,7 @@ import seung.spring.boot.conf.web.util.SResponse;
 import seung.spring.kimbap.rest.service.SRestS;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags = "테스트 API", value = "SRestC")
+@Api(tags = "REST API SAMPLE", value = "SRestC")
 @Slf4j
 @Controller
 public class SRestC {
@@ -29,40 +29,7 @@ public class SRestC {
 	@Resource(name = "sRestS")
 	private SRestS sRestS;
 	
-	@ApiOperation(response = SResponse.class, value = "JPA 조회 테스트", notes = "JAP findAll")
-	@ApiResponses(value = {
-			@ApiResponse(
-					code = 200
-					, message = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"rest0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
-					, examples = @Example(value = {
-							@ExampleProperty(
-									mediaType = "application/json"
-									, value = "{\"error_code\": \"0000\",\"error_message\": \"\",\"request\": {\"request_code\": \"81967e1b-82b6-452e-808c-3bf544c3e10c\"},\"data\": {\"rest0000\": [{\"id\": 25,\"col01\": \"컬럼1\",\"col02\": \"컬럼2\",\"date_c\": 1590862789863,\"date_u\": 1590862789863}]}}"
-									)})
-					)
-	})
-	@RequestMapping(value = {"/rest/rest0000"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String rest0000(
-			Model model
-			, @ApiIgnore SRequest sRequest
-			, @ApiParam(
-					value = "요청코드"
-					, type = "string"
-					, allowEmptyValue = true
-					, allowMultiple = false
-					, example = "81967e1b-82b6-452e-808c-3bf544c3e10c"
-					) @RequestParam String request_code
-			) throws Exception {
-		
-		log.debug("run");
-		
-		model.addAttribute("no-wrap", sRestS.rest0000(sRequest));
-		
-		return "jsonView";
-		
-	}
-	
-	@ApiOperation(response = SResponse.class, value = "JPA 등록 테스트", notes = "JPA saveAndFlush")
+	@ApiOperation(response = SResponse.class, value = "CREATE", notes = "JPA")
 	@ApiResponses(value = {
 			@ApiResponse(
 					code = 200
@@ -101,7 +68,7 @@ public class SRestC {
 		return "jsonView";
 	}
 	
-	@ApiOperation(response = SResponse.class, value = "JPA 수정 테스트", notes = "JPA saveAndFlush")
+	@ApiOperation(response = SResponse.class, value = "RECORD", notes = "JAP")
 	@ApiResponses(value = {
 			@ApiResponse(
 					code = 200
@@ -115,6 +82,39 @@ public class SRestC {
 	})
 	@RequestMapping(value = {"/rest/rest0020"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
 	public String rest0020(
+			Model model
+			, @ApiIgnore SRequest sRequest
+			, @ApiParam(
+					value = "요청코드"
+					, type = "string"
+					, allowEmptyValue = true
+					, allowMultiple = false
+					, example = "81967e1b-82b6-452e-808c-3bf544c3e10c"
+					) @RequestParam String request_code
+			) throws Exception {
+		
+		log.debug("run");
+		
+		model.addAttribute("no-wrap", sRestS.rest0020(sRequest));
+		
+		return "jsonView";
+		
+	}
+	
+	@ApiOperation(response = SResponse.class, value = "UPDATE", notes = "JPA")
+	@ApiResponses(value = {
+			@ApiResponse(
+					code = 200
+					, message = ""
+					, examples = @Example(value = {
+							@ExampleProperty(
+									mediaType = "application/json"
+									, value = ""
+									)})
+					)
+	})
+	@RequestMapping(value = {"/rest/rest0030"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0030(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -142,12 +142,12 @@ public class SRestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sRestS.rest0020(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0030(sRequest));
 		
 		return "jsonView";
 	}
 	
-	@ApiOperation(response = SResponse.class, value = "JPA 삭제 테스트", notes = "JPA delete")
+	@ApiOperation(response = SResponse.class, value = "DELETE", notes = "JPA")
 	@ApiResponses(value = {
 			@ApiResponse(
 					code = 200
@@ -159,8 +159,8 @@ public class SRestC {
 									)})
 					)
 	})
-	@RequestMapping(value = {"/rest/rest0030"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
-	public String rest0030(
+	@RequestMapping(value = {"/rest/rest0040"}, method = {RequestMethod.POST}, produces = "application/json; charset=UTF-8")
+	public String rest0040(
 			Model model
 			, @ApiIgnore SRequest sRequest
 			, @ApiParam(
@@ -174,7 +174,7 @@ public class SRestC {
 		
 		log.debug("run");
 		
-		model.addAttribute("no-wrap", sRestS.rest0030(sRequest));
+		model.addAttribute("no-wrap", sRestS.rest0040(sRequest));
 		
 		return "jsonView";
 	}

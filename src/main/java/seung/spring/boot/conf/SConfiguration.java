@@ -2,7 +2,6 @@ package seung.spring.boot.conf;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -35,15 +34,7 @@ public class SConfiguration {
 		
 		log.debug("run");
 		
-		SProperties sProperties = SProperties
-				.builder()
-				.environment(new Properties())
-				.datasource(new ArrayList<>())
-				.swagger(new Properties())
-				.jpaVendorProperties(new Properties())
-				.jpaProperties(new Properties())
-				.build()
-				;
+		SProperties sProperties = SProperties.builder().build();
 		try {
 			
 			Properties properties = Binder.get(environment).bind("", Bindable.of(Properties.class)).get();
@@ -68,9 +59,11 @@ public class SConfiguration {
 							, propertyValue
 							);
 				} else if(propertyName.startsWith("spring.jpa.properties")) {
-					sProperties.getJpaProperties().put(propertyName.replace("spring.jpa.properties.", ""), propertyValue);
+					sProperties.getJpa().put(propertyName.replace("spring.jpa.properties.", ""), propertyValue);
 				} else if(propertyName.startsWith("spring.jpa")) {
-					sProperties.getJpaVendorProperties().put(propertyName, propertyValue);
+					sProperties.getJpaVendor().put(propertyName, propertyValue);
+				} else if(propertyName.startsWith("spring.quartz.properties")) {
+					sProperties.getQuartz().put(propertyName.replace("spring.quartz.properties.", ""), propertyValue);
 				} else {
 					sProperties.getEnvironment().put(propertyName, propertyValue);
 				}

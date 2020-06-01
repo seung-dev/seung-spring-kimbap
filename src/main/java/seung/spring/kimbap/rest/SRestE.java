@@ -24,7 +24,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 @Getter
 @Setter
-public class SRest {
+public class SRestE {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,11 +38,11 @@ public class SRest {
 	private String col02;
 	
 	@Column
-	private Date date_c;
+	private Date dateC;
 	
 	@Column
-	private Date date_u;
+	private Date dateU;
 	
-	protected SRest() {}
+	protected SRestE() {}
 	
 }

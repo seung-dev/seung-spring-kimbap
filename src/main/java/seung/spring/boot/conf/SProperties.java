@@ -1,17 +1,15 @@
 package seung.spring.boot.conf;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+@Builder(builderMethodName = "hiddenBuilder")
 @Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@Setter
 public class SProperties {
 
 	private Properties environment;
@@ -20,22 +18,21 @@ public class SProperties {
 	
 	private List<Properties> datasource;
 	
-	private Properties jpaVendorProperties;
+	private Properties jpa;
 	
-	private Properties jpaProperties;
+	private Properties jpaVendor;
 	
-	@Builder
-	public SProperties(
-			Properties environment
-			, Properties swagger
-			, List<Properties> datasource
-			, Properties jpaVendorProperties
-			, Properties jpaProperties
-			) {
-		this.environment = environment;
-		this.swagger = swagger;
-		this.datasource = datasource;
-		this.jpaVendorProperties = jpaVendorProperties;
-		this.jpaProperties = jpaProperties;
+	private Properties quartz;
+	
+	public static SPropertiesBuilder builder() {
+		return hiddenBuilder()
+				.environment(new Properties())
+				.swagger(new Properties())
+				.datasource(new ArrayList<>())
+				.jpa(new Properties())
+				.jpaVendor(new Properties())
+				.quartz(new Properties())
+				;
 	}
+	
 }

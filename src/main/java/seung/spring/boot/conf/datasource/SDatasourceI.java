@@ -62,6 +62,7 @@ public class SDatasourceI {
 		log.debug("run");
 		
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//		configuration.setMapUnderscoreToCamelCase(true);
 		configuration.setCallSettersOnNulls(true);
 		configuration.setJdbcTypeForNull(JdbcType.VARCHAR);
 		
@@ -95,8 +96,8 @@ public class SDatasourceI {
 			SProperties sProperties
 			) {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		hibernateJpaVendorAdapter.setGenerateDdl(Boolean.parseBoolean(sProperties.getJpaVendorProperties().getProperty("spring.jpa.generate-ddl", "false")));
-		hibernateJpaVendorAdapter.setShowSql(Boolean.parseBoolean(sProperties.getJpaVendorProperties().getProperty("spring.jpa.show-sql", "false")));
+		hibernateJpaVendorAdapter.setGenerateDdl(Boolean.parseBoolean(sProperties.getJpaVendor().getProperty("spring.jpa.generate-ddl", "false")));
+		hibernateJpaVendorAdapter.setShowSql(Boolean.parseBoolean(sProperties.getJpaVendor().getProperty("spring.jpa.show-sql", "false")));
 //		hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
 		return hibernateJpaVendorAdapter;
 	}
@@ -117,7 +118,7 @@ public class SDatasourceI {
 		
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapterI);
-		localContainerEntityManagerFactoryBean.setJpaProperties(sProperties.getJpaProperties());
+		localContainerEntityManagerFactoryBean.setJpaProperties(sProperties.getJpa());
 //		localContainerEntityManagerFactoryBean.getNativeEntityManagerFactory().
 		localContainerEntityManagerFactoryBean.setPersistenceUnitName("seung");
 		localContainerEntityManagerFactoryBean.setDataSource(dataSourceI);
