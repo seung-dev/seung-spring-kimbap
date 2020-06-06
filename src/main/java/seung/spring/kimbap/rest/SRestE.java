@@ -26,23 +26,23 @@ import lombok.Setter;
 @Setter
 public class SRestE {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-	
-	@NotBlank
-	@Column
-	private String col01;
-	
-	@Column
-	private String col02;
-	
-	@Column
-	private Date dateC;
-	
-	@Column
-	private Date dateU;
-	
-	protected SRestE() {}
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+    
+    @NotBlank
+    @Column
+    private String col01;
+    
+    @Column
+    private String col02;
+    
+    @Column
+    private Date dateC;
+    
+    @Column
+    private Date dateU;
+    
+    protected SRestE() {}
+    
 }
