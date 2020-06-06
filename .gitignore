@@ -9,3 +9,9 @@ build
 /.settings/
 /bin/
 /gradle/
+
+# resources
+/src/main/resources/s-datasource.properties
+/src/main/resources/s-jpa.properties
+/src/main/resources/s-swagger.properties
+/src/main/resources/s-quartz.properties
