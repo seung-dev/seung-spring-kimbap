@@ -12,8 +12,8 @@ import seung.java.kimchi.exception.SKimchiException;
 import seung.spring.boot.conf.datasource.SMapperI;
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
-import seung.spring.kimbap.exception.SKimbapError;
 import seung.spring.kimbap.rest.SRestE;
+import seung.spring.kimbap.util.SKimbapError;
 
 @Slf4j
 @Service(value = "sRestS")
@@ -31,7 +31,10 @@ public class SRestSI implements SRestS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         
         SRestE saveAndFlush = sRestR.saveAndFlush(
                 SRestE
@@ -43,7 +46,7 @@ public class SRestSI implements SRestS {
                     .build()
                 )
                 ;
-        sResponse.putData("rest0010", saveAndFlush);
+        sResponse.putResult("rest0010", saveAndFlush);
         sResponse.setError_code(SKimbapError.Success.errorCode());
         
         return sResponse;
@@ -54,9 +57,12 @@ public class SRestSI implements SRestS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         
-        sResponse.putData("rest0020", sRestR.findAll());
+        sResponse.putResult("rest0020", sRestR.findAll());
         sResponse.setError_code(SKimbapError.Success.errorCode());
         
         return sResponse;
@@ -67,13 +73,16 @@ public class SRestSI implements SRestS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         
         SRestE sRest = sRestR.getOne(sRequest.getData().getLong("id"));
         sRest.setCol01(sRequest.getData().getString("col01", ""));
         sRest.setCol02(sRequest.getData().getString("col02", ""));
         sRest.setDateU(new Date());
-        sResponse.putData("rest0030", sRestR.saveAndFlush(sRest));
+        sResponse.putResult("rest0030", sRestR.saveAndFlush(sRest));
         sResponse.setError_code(SKimbapError.Success.errorCode());
         
         return sResponse;
@@ -84,10 +93,13 @@ public class SRestSI implements SRestS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         
         sRestR.deleteById(sRequest.getData().getLong("id"));
-        sResponse.putData("rest0040", sRestR.existsById(sRequest.getData().getLong("id")) ? 0 : 1);
+        sResponse.putResult("rest0040", sRestR.existsById(sRequest.getData().getLong("id")) ? 0 : 1);
         sResponse.setError_code(SKimbapError.Success.errorCode());
         
         return sResponse;

@@ -35,8 +35,8 @@ import seung.spring.boot.conf.datasource.SMapperI;
 import seung.spring.boot.conf.quartz.SQuartzFactory;
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
-import seung.spring.kimbap.exception.SKimbapError;
-import seung.spring.kimbap.exception.SKimbapException;
+import seung.spring.kimbap.util.SKimbapError;
+import seung.spring.kimbap.util.SKimbapException;
 
 @Slf4j
 @Service(value = "sQuartzS")
@@ -58,7 +58,10 @@ public class SQuartzSI implements SQuartzS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -93,7 +96,7 @@ public class SQuartzSI implements SQuartzS {
                         ;
                 
                 Date quartz0010 = scheduler.scheduleJob(jobDetail, trigger);
-                sResponse.getData().put("quartz0010", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0010));
+                sResponse.putResult("quartz0010", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0010));
                 
                 sResponse.setError_code(SKimbapError.Success.errorCode());
                 
@@ -118,7 +121,11 @@ public class SQuartzSI implements SQuartzS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -153,7 +160,7 @@ public class SQuartzSI implements SQuartzS {
                         ;
                 
                 Date quartz0011 = scheduler.scheduleJob(jobDetail, trigger);
-                sResponse.getData().put("quartz0011", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0011));
+                sResponse.putResult("quartz0011", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0011));
                 
             }// end of check exists
             
@@ -171,15 +178,17 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0020(SRequest sRequest) {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
         
-        sResponse.getData().put("quartz0020", sMapperI.selectList("quartz0020"));
+        sResponse.putResult("quartz0020", sMapperI.selectList("quartz0020"));
         
         sResponse.setError_code(SKimbapError.Success.errorCode());
         return sResponse;
@@ -191,15 +200,19 @@ public class SQuartzSI implements SQuartzS {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             List<SLinkedHashMap> quartz0021 = new ArrayList<>();
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             
-            sResponse.putData("instance_id", scheduler.getSchedulerInstanceId());
-            sResponse.putData("name", scheduler.getSchedulerName());
+            sResponse.putResult("instance_id", scheduler.getSchedulerInstanceId());
+            sResponse.putResult("name", scheduler.getSchedulerName());
             
             SLinkedHashMap       job           = null;
             List<Trigger>        triggersOfJob = null;
@@ -231,7 +244,7 @@ public class SQuartzSI implements SQuartzS {
                 }// end of job keys
             }// end of job group names
             
-            sResponse.getData().put("quartz0021", quartz0021);
+            sResponse.putResult("quartz0021", quartz0021);
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);
@@ -242,13 +255,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0030(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -256,7 +272,7 @@ public class SQuartzSI implements SQuartzS {
             String group = sRequest.getData().getString("job_group", "");
             String name = sRequest.getData().getString("job_name", "");
             
-            sResponse.getData().put("quartz0030", scheduler.unscheduleJob(TriggerKey.triggerKey(name, group)) ? "1" : "0");
+            sResponse.putResult("quartz0030", scheduler.unscheduleJob(TriggerKey.triggerKey(name, group)) ? "1" : "0");
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);
@@ -266,13 +282,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0031(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -299,7 +318,7 @@ public class SQuartzSI implements SQuartzS {
                         );
                 
                 Date quartz0031 = scheduler.rescheduleJob(TriggerKey.triggerKey(name, group), trigger);
-                sResponse.getData().put("quartz0031", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0031));
+                sResponse.putResult("quartz0031", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0031));
                 
             }
             
@@ -315,13 +334,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0032(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -347,7 +369,7 @@ public class SQuartzSI implements SQuartzS {
                         );
                 
                 Date quartz0032 = scheduler.rescheduleJob(TriggerKey.triggerKey(name, group), trigger);
-                sResponse.getData().put("quartz0032", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0032));
+                sResponse.putResult("quartz0032", SDate.getDateString("yyyy-MM-dd HH:mm:ss", quartz0032));
                 
             }
             
@@ -365,13 +387,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0040(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -381,7 +406,7 @@ public class SQuartzSI implements SQuartzS {
             
             JobKey jobKey = JobKey.jobKey(name, group);
             
-            sResponse.getData().put("quartz0040", scheduler.deleteJob(jobKey) ? "1" : "0");
+            sResponse.putResult("quartz0040", scheduler.deleteJob(jobKey) ? "1" : "0");
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);
@@ -391,13 +416,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0050(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -409,7 +437,7 @@ public class SQuartzSI implements SQuartzS {
             
             scheduler.triggerJob(jobKey);
             
-            sResponse.getData().put("quartz0050", "1");
+            sResponse.putResult("quartz0050", "1");
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);
@@ -419,13 +447,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0051(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -437,7 +468,7 @@ public class SQuartzSI implements SQuartzS {
             
             scheduler.pauseJob(jobKey);
             
-            sResponse.getData().put("quartz0051", "1");
+            sResponse.putResult("quartz0051", "1");
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);
@@ -447,13 +478,16 @@ public class SQuartzSI implements SQuartzS {
         return sResponse;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public SResponse quartz0052(SRequest sRequest) throws SKimbapException {
         
         log.debug("run");
         
-        SResponse sResponse = SResponse.builder(sRequest.getData()).build();
+        SResponse sResponse = SResponse.builder()
+                .data(sRequest.getData())
+                .build()
+                ;
+        
         try {
             
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -465,7 +499,7 @@ public class SQuartzSI implements SQuartzS {
             
             scheduler.resumeJob(jobKey);
             
-            sResponse.getData().put("quartz0052", "1");
+            sResponse.putResult("quartz0052", "1");
             
         } catch (SchedulerException e) {
             throw new SKimbapException(e);

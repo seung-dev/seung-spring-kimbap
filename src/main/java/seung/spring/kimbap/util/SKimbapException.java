@@ -1,8 +1,5 @@
-package seung.spring.kimbap.exception;
+package seung.spring.kimbap.util;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class SKimbapException extends Exception {
 
     private static final long serialVersionUID = 5189823797488674551L;

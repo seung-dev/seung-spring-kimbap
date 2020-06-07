@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
-import seung.spring.kimbap.exception.SKimbapError;
+import seung.spring.kimbap.util.SKimbapError;
 
 @Slf4j
 @ControllerAdvice
@@ -23,7 +23,7 @@ public class SKimbapAdvice {
                 .status(sError.httpStatus())
                 .body(SResponse
                         .builder()
-                        .request(sRequest.getData())
+                        .data(sRequest.getData())
                         .error_code(sError.errorCode())
                         .error_message(exception.getMessage())
                         .build()

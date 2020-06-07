@@ -1,4 +1,4 @@
-package seung.spring.kimbap.exception;
+package seung.spring.kimbap.util;
 
 import javax.validation.ConstraintViolationException;
 

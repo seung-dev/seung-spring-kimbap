@@ -2,7 +2,7 @@ package seung.spring.kimbap.quartz.service;
 
 import seung.spring.boot.conf.web.util.SRequest;
 import seung.spring.boot.conf.web.util.SResponse;
-import seung.spring.kimbap.exception.SKimbapException;
+import seung.spring.kimbap.util.SKimbapException;
 
 public interface SQuartzS {
 
